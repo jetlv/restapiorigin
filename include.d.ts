@@ -6,3 +6,4 @@
 /// <reference path="typings/bluebird/bluebird.d.ts" />
 /// <reference path="typings/phantomjs/phantomjs.d.ts" />
 /// <reference path="typings/mongoose/mongoose.d.ts" />
+/// <reference path="typings/express/express.d.ts" />

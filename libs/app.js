@@ -15,6 +15,7 @@ var oauth2 = require('./auth/oauth2');
 var api = require('./routes/api');
 var users = require('./routes/users');
 var articles = require('./routes/articles');
+var ht = require('./routes/ht');
 
 var app = express();
 
@@ -22,13 +23,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(methodOverride());
-app.use(passport.initialize());
+// app.use(passport.initialize());
 
 app.use('/', api);
 app.use('/api', api);
 app.use('/api/users', users);
 app.use('/api/articles', articles);
 app.use('/api/oauth/token', oauth2.token);
+app.use('/api/ht', ht);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next){

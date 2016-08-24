@@ -28,10 +28,10 @@ function baseAccess(tokens, callback) {
     var f = {
         'Authorization': 'bearer ' + access_token
     }
-    var url = 'http://localhost:1337/api/users/info?Authorization=bearer' + access_token;
+    var url = 'http://localhost:1337/api/articles?access_token=' + access_token;
     request({ url: url, method : 'GET'}, function (err, resp, body) {
         var users = JSON.parse(body);
-        fs.appendFileSync('users.json', body);
+        fs.writeFileSync('users.json', body);
         callback(null, 'done');
     });
 }
@@ -39,5 +39,9 @@ function baseAccess(tokens, callback) {
 async.waterfall([token_processer, baseAccess], function (err, msg) {
     console.log(msg);
 });
+
+// request({url : 'http://api.vs.lightinthebox.com/api/v1/admin/sign', form : {app_key : 'V06GF3A2'}, method : 'POST'}, function(err, resp, body) {
+//     console.log(body);
+// });
 
 //https://github.com/ealeksandrov/NodeAPI
