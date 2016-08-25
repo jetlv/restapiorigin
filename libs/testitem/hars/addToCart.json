@@ -1,0 +1,102 @@
+{
+  "method": "POST",
+  "url": "http://test.item.www.milanoo.com/shop/Cart.html",
+  "httpVersion": "HTTP/1.1",
+  "headers": [
+    {
+      "name": "Origin",
+      "value": "http://test.item.www.milanoo.com"
+    },
+    {
+      "name": "Accept-Encoding",
+      "value": "gzip, deflate"
+    },
+    {
+      "name": "Host",
+      "value": "test.item.www.milanoo.com"
+    },
+    {
+      "name": "Accept-Language",
+      "value": "zh-CN,zh;q=0.8"
+    },
+    {
+      "name": "Upgrade-Insecure-Requests",
+      "value": "1"
+    },
+    {
+      "name": "User-Agent",
+      "value": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/52.0.2743.116 Safari/537.36"
+    },
+    {
+      "name": "Content-Type",
+      "value": "multipart/form-data; boundary=----WebKitFormBoundarySen9mRxf1AsfuRug"
+    },
+    {
+      "name": "Accept",
+      "value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"
+    },
+    {
+      "name": "Cache-Control",
+      "value": "max-age=0"
+    },
+    {
+      "name": "Referer",
+      "value": "http://test.item.www.milanoo.com/product/two-tone-slim-fit-polo-shirt-p487799.html"
+    },
+    {
+      "name": "Connection",
+      "value": "keep-alive"
+    }
+  ],
+  "queryString": [],
+  "postData": {
+    "mimeType": "multipart/form-data; boundary=----WebKitFormBoundarySen9mRxf1AsfuRug",
+    "params": [
+      {
+        "name" : "buytype",
+        "value" : 0
+      },
+      {
+        "name" : "websiteId",
+        "value" : 1
+      },
+      {
+        "name" : "ProductsId",
+        "value" : "487799"
+      },
+      {
+        "name" :"CustomAttributes_array[769]",
+        "value" : "White"
+      },
+      {
+        "name" :"CustomAttributes_array[360]",
+        "value" : "size02"
+      },
+      {
+        "name" :"num",
+        "value" : 1
+      },
+      {
+        "name" :"country",
+        "value" : 1
+      },
+      {
+        "name" :"Additional_CustomAttributes_array[257376][2]",
+        "value" : "size9"
+      },
+      {
+        "name" :"Additional_CustomAttributes_array[257376][769]",
+        "value" : "Blue"
+      },
+      {
+        "name" :"Additional_CustomAttributes_array[287610][360]",
+        "value" : "please"
+      },
+      {
+        "name" :"Additional_CustomAttributes_array[287610][769]",
+        "value" : "please"
+      }
+    ],
+    "text": "------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"referer_type\"\r\n\r\n\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"referer_id\"\r\n\r\n\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"buytype\"\r\n\r\n0\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"websiteId\"\r\n\r\n1\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"reco\"\r\n\r\n\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"ProductsId\"\r\n\r\n487799\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"CustomAttributes_array[769]\"\r\n\r\nWhite\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"CustomAttributes_array[360]\"\r\n\r\nsize02\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"num\"\r\n\r\n1\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"countryId\"\r\n\r\n1\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"Additional_CustomAttributes_array[257376][2]\"\r\n\r\nsize9\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"Additional_CustomAttributes_array[257376][769]\"\r\n\r\nBlue\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"Additional_CustomAttributes_array[287610][360]\"\r\n\r\nplease\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"Additional_CustomAttributes_array[287610][769]\"\r\n\r\nplease\r\n------WebKitFormBoundarySen9mRxf1AsfuRug\r\nContent-Disposition: form-data; name=\"addition_products_id_array\"\r\n\r\n\r\n------WebKitFormBoundarySen9mRxf1AsfuRug--\r\n"
+  }
+}
