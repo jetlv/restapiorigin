@@ -19,5 +19,6 @@
             "clientId": "android",
             "clientSecret": "SomeRandomCharsAndNumbers"
         }
-    }
+    },
+    "authentication" : false
 }

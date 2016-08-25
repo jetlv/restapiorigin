@@ -1,0 +1,23 @@
+[
+    {
+        "name": "获取用户ID",
+        "description": "根据传入的邮箱，获取用户ID",
+        "category": "ht",
+        "path": "/api/ht/member/id/:email",
+        "example": "http://127.0.0.1:1337/api/ht/member/id/lvchao@milanoo.com"
+    },
+    {
+        "name": "创建商品折扣券",
+        "description": "根据传入商品ID和语言站，创建一个满减10的商品折扣券",
+        "category": "ht",
+        "path": "/api/ht/pdiscount/add/:site/:pid",
+        "example": "http://127.0.0.1:1337/api/ht/pdiscout/add/fr/3213"
+    },
+    {
+        "name": "创建订单折扣券",
+        "description": "根据传入语言站，创建一个满减10的订单折扣券",
+        "category": "ht",
+        "path": "/api/ht/odiscount/add/:site",
+        "example": "http://127.0.0.1:1337/api/ht/odiscout/add/fr"
+    }
+]

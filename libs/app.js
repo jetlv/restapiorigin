@@ -16,6 +16,7 @@ var api = require('./routes/api');
 var users = require('./routes/users');
 var articles = require('./routes/articles');
 var ht = require('./routes/ht');
+var doc = require('./routes/doc');
 
 var app = express();
 
@@ -24,8 +25,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(methodOverride());
 // app.use(passport.initialize());
+app.engine('html', require('ejs').renderFile);
+app.use('/public', express.static(process.cwd() + '/public'));
+app.set('view engine', 'html');
 
 app.use('/', api);
+app.use('/doc', doc);
 app.use('/api', api);
 app.use('/api/users', users);
 app.use('/api/articles', articles);

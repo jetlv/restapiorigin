@@ -7,3 +7,5 @@
 /// <reference path="typings/phantomjs/phantomjs.d.ts" />
 /// <reference path="typings/mongoose/mongoose.d.ts" />
 /// <reference path="typings/express/express.d.ts" />
+/// <reference path="typings/moment/moment.d.ts" />
+

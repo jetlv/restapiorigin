@@ -5,6 +5,8 @@ var commonUtil = require('../commonUtil.js');
 var fs = require('fs');
 var async = require('async');
 var mysql = require('mysql');
+var moment = require('moment');
+var lm = {"en" : "154", "fr" : "472"}// lang-module映射
 var mysqlOptions = {
     host: '192.168.11.24',
     user: 'dev',
@@ -41,14 +43,14 @@ function idFetcher(email, callback) {
 /**
  * 传入要执行的方法
  */
-function runHt(toRun, args) {
+function runHt(toRun, args, callback) {
     request({ gzip: true, url: 'http://192.168.11.67:8580/cas/login?service=http%3A%2F%2Ftest.item.ht.milanoo.com%2Fmilanooht%2Findex.php', method: 'GET' }, function (err, resp, body) {
         var cookie = getSessions(resp);
         var jSessionId = cookie.split("=")[1].split('=')[0];
-        console.log(jSessionId);
+        // console.log(jSessionId);
         var $ = cheerio.load(body);
         var lt = $('input[name="lt"]').attr('value');
-        console.log(cookie);
+        // console.log(cookie);
         var form = {
             "username": "admin",
             "password": "milan00@999",
@@ -84,6 +86,7 @@ function runHt(toRun, args) {
                 var htCookie = getSessions(resp);
                 htHeaders.Cookie = "milanooAdminId=" + ticket + ";";
                 request({ gzip: true, url: 'http://test.item.ht.milanoo.com/milanooht/index.php', method: 'GET', headers: htHeaders }, function (err, resp, body) {
+                    args.push(callback);
                     toRun.apply({ headers: htHeaders }, args);
                 });
             });
@@ -92,9 +95,9 @@ function runHt(toRun, args) {
 }
 
 /** 设置一个基本商品满减的活动 缺少数据库写权限，只能由php接口写*/
-function composeRegularProductDiscount(productId) {
+function composeRegularProductDiscount(lang, productId, callback) {
     var form = {
-        "module_id": "154",
+        "module_id": lm[lang],
         "module_action": "action",
         "menu_action": "addpost",
         "id": "",
@@ -124,8 +127,58 @@ function composeRegularProductDiscount(productId) {
         "submit": "提 交"
     }
 
-    request({ gzip: true, url: 'http://test.item.ht.milanoo.com/milanooht/index.php?module_id=154', method: 'POST', form: form, headers: this.headers }, function (err, resp, body) {
+    request({ gzip: true, url: 'http://test.item.ht.milanoo.com/milanooht/index.php?module_id=' + lm[lang], method: 'POST', form: form, headers: this.headers }, function (err, resp, body) {
         if (err) console.log(err);
+        if(!err) {
+            callback(null, 1);
+        } else {
+            callback(null, 2);
+        }
+        // fs.writeFileSync('body.html', body);
+    });
+}
+
+/** 设置一个基本的订单满减10活动 */
+function composeRegularOrderDiscount(lang, callback) {
+     var timeStr = moment().format('YYYYMMDDhhmmss');
+     var form = {
+        "module_id": lm[lang],
+        "module_action": "action",
+        "menu_action": "addpost",
+        "id": "",
+        "WebsiteId": "1",
+        "type": "0",
+        "NoteName": timeStr + "NoteName",
+        "name": timeStr + "name",
+        "libkey": timeStr + "code",
+        "ceremony_details": timeStr + "rule",
+        "Against": "Orders",
+        "prokey": "",
+        "is_auto_used": "0",
+        "RangeTime": "-1",
+        "startime": "",
+        "endtime": "",
+        "RangeProducts": '',
+        "CategoriesAdditional_Id": "",
+        "ShopSum": 1,
+        "range_type": 1,
+        "RangeLumpSum[1][0]": 0,
+        "RangeLumpSum[1][1]": -1,
+        "DiscountWay[1]": 1,
+        "DiscountData[1][1]": 10,
+        // "DiscountData[1][2]": "",
+        "rule": 0,
+        "myaccount_display": 1,
+        "submit": "提 交"
+    }
+
+    request({ gzip: true, url: 'http://test.item.ht.milanoo.com/milanooht/index.php?module_id=' + lm[lang], method: 'POST', form: form, headers: this.headers }, function (err, resp, body) {
+        if (err) console.log(err);
+        if(!err) {
+            callback(null, 1);
+        } else {
+            callback(null, 2);
+        }
         // fs.writeFileSync('body.html', body);
     });
 }
@@ -135,5 +188,8 @@ function composeRegularProductDiscount(productId) {
 // runHt(composeRegularProductDiscount, ['510233']);
 
 module.exports = {
-    getId: idFetcher
+    getId: idFetcher,
+    runHt : runHt,
+    composeRegularProductDiscount : composeRegularProductDiscount,
+    composeRegularOrderDiscount : composeRegularOrderDiscount
 }
