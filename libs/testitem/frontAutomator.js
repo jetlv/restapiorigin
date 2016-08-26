@@ -7,7 +7,7 @@ var async = require('async');
 
 var getSessions = commonUtil.getSessions;
 
-placeOrder('en', 'multiplepayer@milanoo.com', '123456', function () { });
+// placeOrder('en', 'multiplepayer@milanoo.com', '123456', function () { });
 /**
  * 前台下一个订单 - 商品是写死的， 仅在没任何要求就要一个订单的时候使用
  */
