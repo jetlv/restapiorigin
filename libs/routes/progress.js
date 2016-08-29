@@ -19,7 +19,11 @@ router.get('/completeorder/:lang/:email/:password', authentication, function (re
     async.waterfall([async.apply(processAutomator.completedOrder, lang, email, password), function (returnMessage, callback) {
         var msg = '';
         if (returnMessage === 10001) {
-            msg = '失败，可能是用户不存在，或者是该用户没有收货地址'
+            msg = '失败，可能是用户不存在，或者是该用户没有收货地址。请重试，如果多次失败，请联系接口作者'
+            returnMessage = {
+                msg : msg,
+                code : 10001
+            }
         }
         res.json(Object.assign(returnMessage, {email : email}));
     }]);

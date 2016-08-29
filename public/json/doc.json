@@ -19,5 +19,19 @@
         "category": "ht",
         "path": "/api/ht/odiscount/add/:site",
         "example": "http://192.168.12.100:1337/api/ht/odiscout/add/fr"
+    },
+    {
+        "name": "前台下订单",
+        "description": "按语言站前台下单，不支付，商品是固定的",
+        "category": "front",
+        "path": "/api/front/order/add/:lang/:email/:password",
+        "example": "http://192.168.12.100:1337/api/front/order/add/en/jetlyu@milanoo.com/123456"
+    },
+    {
+        "name": "完整订单流程",
+        "description": "按语言站跑完一整个订单流程，到打包发货为止，商品是固定的",
+        "category": "progress",
+        "path": "/api/progress/completeorder/:lang/:email/:password",
+        "example": "http://192.168.12.100:1337/api/progress/completeorder/en/jetlyu@milanoo.com/123456"
     }
 ]

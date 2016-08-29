@@ -26,7 +26,7 @@ function orderCenterProcess(orderCid, callback) {
     //     "Connection": "keep-alive"
     // }
 
-    request = request.defaults({ proxy: 'http://127.0.0.1:8888' });
+    // request = request.defaults({ proxy: 'http://127.0.0.1:8888' });
     // request({ method: 'GET', headers : originalHeader, url: hardcodeLogin, gzip: true }, function (e, r, b) {
     // var cookie = getSessions(r);
     // console.log(cookie);
