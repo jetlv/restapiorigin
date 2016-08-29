@@ -8,4 +8,6 @@
 /// <reference path="typings/mongoose/mongoose.d.ts" />
 /// <reference path="typings/express/express.d.ts" />
 /// <reference path="typings/moment/moment.d.ts" />
+/// <reference path="typings/mysql/mysql.d.ts" />
+
 

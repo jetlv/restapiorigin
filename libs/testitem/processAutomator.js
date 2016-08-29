@@ -22,10 +22,17 @@ var wmsProcess = erp.wmsProcess;
 /**
  * 完成一个订单
  */
-function completedOrder() {
-    async.waterfall([async.apply(placeOrder, 'en', 'multiplepayer@milanoo.com', '123456'), orderCenterProcess, supplierProcess, wmsProcess], function(err, result) {
-        console.log(result);
+function completedOrder(lang, email ,password, callback) {
+    async.waterfall([async.apply(placeOrder, lang, email, password), orderCenterProcess, supplierProcess, wmsProcess], function(err, result) {
+        if(err) {
+            callback(null, 10001);
+            return;
+        }
+        callback(null, result);
     });
 }
-completedOrder();
+
+module.exports = {
+    completedOrder : completedOrder
+}
 

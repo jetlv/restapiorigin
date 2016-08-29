@@ -17,6 +17,8 @@ var users = require('./routes/users');
 var articles = require('./routes/articles');
 var ht = require('./routes/ht');
 var doc = require('./routes/doc');
+var front = require('./routes/front');
+var progress = require('./routes/progress')
 
 var app = express();
 
@@ -36,6 +38,8 @@ app.use('/api/users', users);
 app.use('/api/articles', articles);
 app.use('/api/oauth/token', oauth2.token);
 app.use('/api/ht', ht);
+app.use('/api/front', front);
+app.use('/api/progress', progress);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next){
