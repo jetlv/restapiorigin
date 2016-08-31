@@ -9,8 +9,10 @@ var log = require(libs + 'log')(module);
 
 var db = require(libs + 'db/mongoose');
 var Article = require(libs + 'model/article');
+var config = require('../config.js')
+var authentication = config.get('authentication') ? passport.authenticate('bearer', { session: false }) : [];
 
-router.get('/', passport.authenticate('bearer', { session: false }), function(req, res) {
+router.get('/', authentication, function(req, res) {
 	
 	Article.find(function (err, articles) {
 		if (!err) {

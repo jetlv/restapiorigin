@@ -6,7 +6,7 @@ var fs = require('fs');
 var async = require('async');
 var mysql = require('mysql');
 var moment = require('moment');
-var lm = {"en" : "154", "fr" : "472"}// lang-module映射
+var lm = { "en": "154", "fr": "472" }// lang-module映射
 var mysqlOptions = {
     host: '192.168.11.24',
     user: 'dev',
@@ -25,7 +25,7 @@ function idFetcher(email, callback) {
     connection.query('select m.MemberId as mid from milanoo_member m where m.MemberEmail=\'' + email + '\'', function (err, rows, fields) {
         if (err) throw err;
 
-        if(rows.length == 0) {
+        if (rows.length == 0) {
             callback(null, -1);
             return;
         }
@@ -129,7 +129,7 @@ function composeRegularProductDiscount(lang, productId, callback) {
 
     request({ gzip: true, url: 'http://test.item.ht.milanoo.com/milanooht/index.php?module_id=' + lm[lang], method: 'POST', form: form, headers: this.headers }, function (err, resp, body) {
         if (err) console.log(err);
-        if(!err) {
+        if (!err) {
             callback(null, 1);
         } else {
             callback(null, 2);
@@ -140,8 +140,8 @@ function composeRegularProductDiscount(lang, productId, callback) {
 
 /** 设置一个基本的订单满减10活动 */
 function composeRegularOrderDiscount(lang, callback) {
-     var timeStr = moment().format('YYYYMMDDhhmmss');
-     var form = {
+    var timeStr = moment().format('YYYYMMDDhhmmss');
+    var form = {
         "module_id": lm[lang],
         "module_action": "action",
         "menu_action": "addpost",
@@ -174,7 +174,7 @@ function composeRegularOrderDiscount(lang, callback) {
 
     request({ gzip: true, url: 'http://test.item.ht.milanoo.com/milanooht/index.php?module_id=' + lm[lang], method: 'POST', form: form, headers: this.headers }, function (err, resp, body) {
         if (err) console.log(err);
-        if(!err) {
+        if (!err) {
             callback(null, 1);
         } else {
             callback(null, 2);
@@ -183,13 +183,88 @@ function composeRegularOrderDiscount(lang, callback) {
     });
 }
 
+
+/**
+ * 查询商品是否参加了“折扣券优惠”或者“打折商品”
+ */
+function queryPromotion(lang, productId, callback) {
+    var mapping = {
+        "en": "en-uk",
+        "fr": "fr-fr",
+        "es": "es-sp",
+        "it": "it-it",
+        "pt": "pt-pt",
+        "jp": "ja-jp",
+        "de": "de-ge",
+        "ru": "ru-ru",
+    };
+
+    var langPrameter = mapping[lang];
+    var connection = mysql.createConnection(mysqlOptions);
+    connection.connect();
+    /** 根据商品id查询折扣券的sql */
+    var discountQuery = "select d.id, d.RangeTime from `milanoo_promotions_discount` d where d.lang='en-uk' and d.RangeTime > unix_timestamp(now()) and d.`RangeProducts` like '%" + productId + "%'";
+    connection.query(discountQuery, function (err, rows, fields) {
+        if (err) throw err;
+
+        if (rows.length == 0) {
+            /** 根据商品id查询促销的sql */
+            var connection = mysql.createConnection(mysqlOptions);
+            connection.connect();
+            var promotionQuery = "select p.libkey from `milanoo_promotions_products` p where p.`ProductsId`=" + productId + " and p.Activated = 1 and p.endtime > unix_timestamp(now()) and p.`lang` ='" + langPrameter + "'";
+            connection.query(promotionQuery, function (err, r, fields) {
+                if(err) {
+                    var msg = "内部错误，请联系接口开发者";
+                    callback(null, msg);
+                }
+                if (r.length == 0) {
+                    var msg = "该商品未参加任何活动";
+                    connection.end();
+                    callback(null, msg);
+                } else {
+                    var msg = "该商品参加了促销活动 " + r[0].libkey;
+                    connection.end();
+                    callback(null, msg);
+                }
+            });
+        } else {
+            var discountID = rows[0].id
+            var msg = "商品" + productId + "在语言站 " + lang + "至少参加了id为" + dicountID + "的折扣券活动";
+            connection.end();
+            callback(null, msg);
+        }
+
+
+
+    });
+
+}
+
 // sqlFetcher('prictdecreasetester@milanoo.com');
 
 // runHt(composeRegularProductDiscount, ['510233']);
 
+// function cheat(name , callback) {
+//     request({
+//         url: 'http://192.168.12.104/Milanoo/system/autocases/copy', form: {
+//             caseId: 109,
+//             projectId: 41,
+//             name: name
+//         }, method: 'POST', headers: { "Cookie": "JSESSIONID=4FA8B195F6FE9D8A0ED097CCA7AA19E7" }
+//     }, function (err, resp, body) {
+//         if (err) console.log(err)
+//         setTimeout(function() {
+//             console.log(name + ' done');
+//             callback();
+//         }, 2000);
+//     });
+// }
+
+
 module.exports = {
     getId: idFetcher,
-    runHt : runHt,
-    composeRegularProductDiscount : composeRegularProductDiscount,
-    composeRegularOrderDiscount : composeRegularOrderDiscount
+    runHt: runHt,
+    composeRegularProductDiscount: composeRegularProductDiscount,
+    composeRegularOrderDiscount: composeRegularOrderDiscount,
+    queryPromotion: queryPromotion
 }

@@ -33,5 +33,12 @@
         "category": "progress",
         "path": "/api/progress/completeorder/:lang/:email/:password",
         "example": "http://192.168.12.100:1337/api/progress/completeorder/en/jetlyu@milanoo.com/123456"
+    },
+    {
+        "name": "查询商品所参加活动",
+        "description": "根据语言站，查询商品是否参加了折扣券活动或者促销活动；折扣券活动优先返回",
+        "category": "ht",
+        "path": "/api/ht/discout/search/:lang/:pid",
+        "example": "http://192.168.12.100:1337/api/ht/discout/search/en/603983"
     }
 ]

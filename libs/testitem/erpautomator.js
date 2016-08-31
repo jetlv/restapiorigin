@@ -16,20 +16,6 @@ var getSessions = commonUtil.getSessions;
 // orderCenterProcess('en_mi_160825172328_427', null);
 
 function orderCenterProcess(orderCid, callback) {
-    // console.log(orderCid);
-    // var originalHeader = {
-    //     "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0",
-    //     "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    //     "Accept-Language": "zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3",
-    //     "Accept-Encoding": "gzip, deflate",
-    //     "Host":"192.168.11.13:82",
-    //     "Connection": "keep-alive"
-    // }
-
-    // request = request.defaults({ proxy: 'http://127.0.0.1:8888' });
-    // request({ method: 'GET', headers : originalHeader, url: hardcodeLogin, gzip: true }, function (e, r, b) {
-    // var cookie = getSessions(r);
-    // console.log(cookie);
     var unAuthenticatedHeader = {
         "User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:47.0) Gecko/20100101 Firefox/47.0",
         "Accept": "application/json, text/javascript, */*; q=0.01",
@@ -53,14 +39,7 @@ function orderCenterProcess(orderCid, callback) {
             "Cookie": cookie,
             "Connection": "keep-alive"
         }
-        // console.log(JSON.stringify(r.headers));
-        // fs.writeFileSync('b.txt', b);
-        // console.log(location)
-        // console.log(r.request.uri.href);
         var ocHome = 'http://192.168.11.13:82/ordercenter/page/index.jsp';
-        // request({ method: 'GET', url: ocHome, gzip: true, headers : authenticatedHeader}, function (e, r, b) {
-        // fs.writeFileSync('b.txt', b);
-        // console.log(JSON.stringify(r.request.headers));
         /** 查询订单ID - e.g 由en_mi_xxxx查询到3360320 */
         var queryUrl = 'http://192.168.11.13:82/ordercenter/page/milanooOrder_query.do';
         var queryForm = {

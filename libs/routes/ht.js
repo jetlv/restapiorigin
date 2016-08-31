@@ -66,4 +66,23 @@ router.get('/odiscout/add/:lang', authentication, function (req, res) {
 
 });
 
+/**
+ * 米兰测试站，查询一个商品是否参加了任意活动
+ * 
+ * 路径： api/ht/activity/search/语言站/商品id
+ * 
+ * 
+ */
+router.get('/discout/search/:lang/:pid', authentication, function (req, res) {
+    var productId = req.params.pid;
+    var lang = req.params.lang;
+    async.waterfall([async.apply(ht.queryPromotion,lang, productId), function (msg, callback) {
+        res.json({
+            message : msg
+        });
+    }]);
+
+});
+
+
 module.exports = router;
