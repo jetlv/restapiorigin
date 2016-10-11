@@ -12,16 +12,16 @@ var nileoo = require('../testitem/nileooAutomator.js');
 router.get('/order/addrandom', authentication, function (req, res) {
     async.waterfall([async.apply(nileoo.autoAdd), function (returned, callback) {
         var respCode;
-        var randomCode = '';
+        var order;
         if (returned === 0) {
             respCode = 0;
         } else {
             respCode = 1;
-            randomCode = returned;
+            order = returned;
         }
         res.json({
             code: respCode,
-            randomCode: randomCode
+            order: order
         });
     }]);
 });

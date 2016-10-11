@@ -34,7 +34,16 @@ function autoAddNileooOrder(callback) {
             fs.unlinkSync(random + '.xls');
             var importResponse = JSON.parse(body);
             if (importResponse.msg === 'success.' && importResponse.code === '0') {
-                callback(null, random);
+                var searchUrl = 'http://192.168.12.40:8080/order/order/getOrderPages.json?pageNo=0&pageSize=10&code=' + random;
+                request({ url: searchUrl, gzip: true }, function (err, res, body) {
+                    var results = JSON.parse(body);
+                    var count = results.result.result.length;
+                    if (count !== 1) {
+                        callback(null, 0);
+                    } else {
+                        callback(null, results.result.result[0]);
+                    }
+                });
             } else {
                 callback(null, 0);
             }
