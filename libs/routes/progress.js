@@ -18,6 +18,7 @@ router.get('/completeorder/:lang/:email/:password', authentication, function (re
     var password = req.params.password;
     async.waterfall([async.apply(processAutomator.completedOrder, lang, email, password), function (returnMessage, callback) {
         var msg = '';
+        console.log(returnMessage);
         if (returnMessage === 10001) {
             msg = '失败，可能是用户信息有误，或者是该用户没有收货地址。请重试几次，如果均失败，请联系接口作者'
             returnMessage = {

@@ -21,6 +21,7 @@
     "mongoose": "^4.4.x",
     "mysql": "^2.11.1",
     "nconf": "^0.6.x",
+    "node-xlsx": "^0.7.2",
     "oauth2orize": "^1.0.x",
     "passport": "^0.2.x",
     "passport-http": "^0.2.x",

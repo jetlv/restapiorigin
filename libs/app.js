@@ -19,6 +19,7 @@ var ht = require('./routes/ht');
 var doc = require('./routes/doc');
 var front = require('./routes/front');
 var progress = require('./routes/progress')
+var nileoo = require('./routes/nileoo.js')
 
 var app = express();
 
@@ -40,23 +41,24 @@ app.use('/api/oauth/token', oauth2.token);
 app.use('/api/ht', ht);
 app.use('/api/front', front);
 app.use('/api/progress', progress);
+app.use('/api/nileoo', nileoo);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next){
+app.use(function (req, res, next) {
     res.status(404);
     log.debug('%s %d %s', req.method, res.statusCode, req.url);
-    res.json({ 
-    	error: 'Not found' 
+    res.json({
+        error: 'Not found'
     });
     return;
 });
 
 // error handlers
-app.use(function(err, req, res, next){
+app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     log.error('%s %d %s', req.method, res.statusCode, err.message);
-    res.json({ 
-    	error: err.message 
+    res.json({
+        error: err.message
     });
     return;
 });

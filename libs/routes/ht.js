@@ -14,7 +14,7 @@ var authentication = config.get('authentication') ? passport.authenticate('beare
  * 文档待写
  * 
  */
-router.get('/member/id/:email', authentication,  function (req, res) {
+router.get('/member/id/:email', authentication, function (req, res) {
     var memberMail = req.params.email;
     // var mid = ht.getId(memberMail);
     async.waterfall([async.apply(ht.getId, memberMail), function (mid, callback) {
@@ -41,7 +41,7 @@ router.get('/pdiscout/add/:lang/:pid', authentication, function (req, res) {
     async.waterfall([async.apply(ht.runHt, ht.composeRegularProductDiscount, [lang, productId]), function (code, callback) {
         res.json({
             code: code,
-            message : code == 1 ? '商品折扣券添加成功' : '商品折扣券添加失败'
+            message: code == 1 ? '商品折扣券添加成功' : '商品折扣券添加失败'
         });
     }]);
 
@@ -60,7 +60,7 @@ router.get('/odiscout/add/:lang', authentication, function (req, res) {
     async.waterfall([async.apply(ht.runHt, ht.composeRegularOrderDiscount, [lang]), function (code, callback) {
         res.json({
             code: code,
-            message : code == 1 ? '订单折扣券添加成功' : '订单折扣券添加失败'
+            message: code == 1 ? '订单折扣券添加成功' : '订单折扣券添加失败'
         });
     }]);
 
@@ -76,9 +76,9 @@ router.get('/odiscout/add/:lang', authentication, function (req, res) {
 router.get('/discout/search/:lang/:pid', authentication, function (req, res) {
     var productId = req.params.pid;
     var lang = req.params.lang;
-    async.waterfall([async.apply(ht.queryPromotion,lang, productId), function (msg, callback) {
+    async.waterfall([async.apply(ht.queryPromotion, lang, productId), function (msg, callback) {
         res.json({
-            message : msg
+            message: msg
         });
     }]);
 

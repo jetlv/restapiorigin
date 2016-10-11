@@ -240,9 +240,7 @@ function queryPromotion(lang, productId, callback) {
 
 }
 
-function sendCoupon(lang, email, callback) {
-    
-}
+
 
 // sqlFetcher('prictdecreasetester@milanoo.com');
 

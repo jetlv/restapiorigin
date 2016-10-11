@@ -11,5 +11,17 @@ funcs.getSessions = function (resp) {
     return cookies.join("; ");
 }
 
+/** generate random str based on provided length */
+
+funcs.randomStr = function (len) {
+    len = len || 32;
+    var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678';
+    var maxPos = $chars.length;
+    var pwd = '';
+    for (i = 0; i < len; i++) {
+        pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
+    }
+    return pwd;
+}
 
 module.exports = funcs;
