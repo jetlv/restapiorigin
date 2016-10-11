@@ -40,5 +40,12 @@
         "category": "ht",
         "path": "/api/ht/discout/search/:lang/:pid",
         "example": "http://192.168.12.100:1337/api/ht/discout/search/en/603983"
+    },
+    {
+        "name": "Nileoo自动增加一个订单",
+        "description": "Nileoo物流平台，自动生成一个随机code的订单",
+        "category": "nileoo",
+        "path": "/api/nileoo/order/addrandom",
+        "example": "http://192.168.12.100:1337/api/nileoo/order/addrandom"
     }
 ]
