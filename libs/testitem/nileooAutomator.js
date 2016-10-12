@@ -28,7 +28,7 @@ function autoAddNileooOrder(callback) {
         console.log(body);
         var bodyJson = JSON.parse(body);
         var fullPath = 'http://192.168.11.67/upload/nileoo/logistics_excel/o/' + bodyJson.filePath;
-        var importApi = 'http://192.168.12.40:8080/order/order/importOrder.json?memberId=99&memberName=测试部&url=' + fullPath;
+        var importApi = 'http://192.168.12.40:8080/order/order/importOrder.json?memberId=1&memberName=测试部&url=' + fullPath;
         console.log(importApi);
         request.post({ url: importApi, gzip: true }, function (error, resp, body) {
             fs.unlinkSync(random + '.xls');
