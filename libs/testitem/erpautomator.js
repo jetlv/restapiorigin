@@ -305,24 +305,27 @@ function wmsProcess(entity, callback) {
                                     var inventoryQueryUrl = 'http://192.168.11.13:82/wms/page/wmsItem_query.do';
                                     var inventoryQueryForm = {
                                         rows: 100000,
-                                        wmsPackageId : wmsPackageId
+                                        wmsPackageId: wmsPackageId
                                     };
                                     request({ method: 'POST', url: inventoryQueryUrl, headers: authenticatedHeader, form: inventoryQueryForm, gzip: true }, function (e, r, b) {
                                         var invJSON = JSON.parse(b);
                                         var inventoryId = invJSON.result.rows[0].id;
-                                    /** 打包发货 */
-                                    var packUrl = 'http://192.168.11.13:82/wms/page/wmsPackage_pack.do';
-                                    var packForm = {
-                                        packWeight: '1.00',
-                                        deliveryId: 7,
-                                        wmsPackageId: wmsPackageId,
-                                        productInfoList: '[{"inventoryId":' + inventoryId + ', "skuId":' + skuId + ',"quantity":1,"missQuantity":0}]'
-                                    }
-                                    request({ method: 'POST', url: packUrl, headers: authenticatedHeader, form: packForm, gzip: true }, function (e, r, b) {
-                                        fs.writeFileSync('dabao.txt', b);
-                                        callback(null, entity);
+                                        /** 打包发货 */
+                                        var packUrl = 'http://192.168.11.13:82/wms/page/wmsPackage_pack.do';
+                                        var packForm = {
+                                            packWeight: '1.00',
+                                            deliveryId: 7,
+                                            wmsPackageId: wmsPackageId,
+                                            productInfoList: '[{"inventoryId":' + inventoryId + ', "skuId":' + skuId + ',"quantity":1,"missQuantity":0}]'
+                                        }
+                                        request({ method: 'POST', url: 'http://192.168.11.13:82/wms/page/warehouse_bindWorkStage.do', headers: authenticatedHeader, form: { 'cargoSiteCode': 'WZDB13' }, gzip: true }, function (e, r, b) {
+                                            request({ method: 'POST', url: packUrl, headers: authenticatedHeader, form: packForm, gzip: true }, function (e, r, b) {
+                                                if (e) console.log(e);
+                                                fs.writeFileSync('dabao.txt', b);
+                                                callback(null, entity);
+                                            });
+                                        })
                                     });
-                                });
                                 });
                             }, 2000);
                         });
