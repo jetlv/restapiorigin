@@ -23,7 +23,9 @@ router.get('/order/addrandom', authentication, function (req, res) {
             code: respCode,
             order: order
         });
-    }]);
+    }], function (error) {
+        console.log(error);
+    });
 });
 
 module.exports = router;
