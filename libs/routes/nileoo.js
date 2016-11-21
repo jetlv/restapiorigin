@@ -28,4 +28,24 @@ router.get('/order/addrandom', authentication, function (req, res) {
     });
 });
 
+router.get('/order/addbyId/:memberId', authentication, function (req, res) {
+    var memberId = req.params.memberId;
+    async.waterfall([async.apply(nileoo.addById, memberId), function (returned, callback) {
+        var respCode;
+        var order;
+        if (returned === 0) {
+            respCode = 0;
+        } else {
+            respCode = 1;
+            order = returned;
+        }
+        res.json({
+            code: respCode,
+            order: order
+        });
+    }], function (error) {
+        console.log(error);
+    });
+});
+
 module.exports = router;

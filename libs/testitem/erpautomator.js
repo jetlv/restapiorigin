@@ -288,7 +288,8 @@ function wmsProcess(entity, callback) {
                             fs.writeFileSync('zhijian.txt', b);
                             /** 查询 wms package id */
                             setTimeout(function () {
-                                // console.log(barcode);
+                                //
+                                console.log(barcode);
                                 var pidQueryUrl = 'http://192.168.11.13:82/wms/page/inventory_query.do';
                                 var pidQueryForm = {
                                     rows: 1,
