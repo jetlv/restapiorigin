@@ -7,7 +7,7 @@ var request = require('request');
 /** 自动添加一个nileoo订单的逻辑 - 随机生成code*/
 function autoAddNileooOrder(callback) {
     var random = util.randomStr(8);
-    var columns = ["物流公司", "序号", "目的地国家", "收件人", "地址1", "地址2", "州", "城市", "邮编", "电话", "数量", "价格_元", "包裹总重量_KG", "HSCODE", "成分描述", "包裹详情_英", "包裹详情_中", "申报价格_元"];
+    var columns = ["物流公司", "序号", "目的地国家", "收件人", "地址1", "地址2", "州", "城市", "邮编", "电话", "数量", "价格", "包裹总重量_KG", "HSCODE", "成分描述", "包裹详情_英", "包裹详情_中", "申报价格"];
     var row = ["Fedex", random, "US", "测试组构造的数据", "123213", "", "", "321321", "354", "0894345569", "1||3", "58||161", "2.8", "6104490099||6114200091", "cosplay clothes 55% Nylon & 45% cotton||100% cotton mens cloth", "shoes||clothes", "鞋子||衣服", "501", "Fedex"];
     var sheet = { name: 'temp', data: [] };
     sheet.data.push(columns);
