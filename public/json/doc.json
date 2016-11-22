@@ -54,5 +54,13 @@
         "category": "nileoo",
         "path": "/api/nileoo/order/addbyId/:memberId",
         "example": "http://192.168.12.100:1337/api/nileoo/order/addbyId/3"
+    },
+    {
+        "name": "Nileoo商城自动生成一个订单",
+        "description": "Nileoo商城，自动生成一个订单",
+        "category": "nileoo",
+        "path": "/api/nileoo/order/addBuyerOrder",
+        "example": "http://192.168.12.100:1337/api/nileoo/order/addBuyerOrder"
     }
+
 ]

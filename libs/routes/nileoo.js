@@ -4,7 +4,7 @@ var router = express.Router();
 var async = require('async');
 var config = require('../config.js')
 
-var authentication = config.get('authentication') ? passport.authenticate('bearer', { session: false }) : [];
+var authentication = config.get('authentication') ? passport.authenticate('bearer', {session: false}) : [];
 var nileoo = require('../testitem/nileooAutomator.js');
 
 /** 自动生成一个nileoo订单 */
@@ -45,6 +45,16 @@ router.get('/order/addbyId/:memberId', authentication, function (req, res) {
         });
     }], function (error) {
         console.log(error);
+    });
+});
+
+/** 自动生成一个Nileoo商城订单 */
+router.get('/order/addBuyerOrder', authentication, function (req, res) {
+    nileoo.addBuyerOrder().then(function (optStr) {
+        res.json({
+            code: 0,
+            order: optStr
+        });
     });
 });
 

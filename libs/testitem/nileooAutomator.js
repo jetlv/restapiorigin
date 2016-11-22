@@ -3,6 +3,8 @@ const fs = require('fs');
 var ew = require('node-xlsx');
 var util = require('../commonUtil.js');
 var request = require('request');
+var rp = require('request-promise');
+var Promise = require('bluebird');
 
 /** 自动添加一个nileoo订单的逻辑 - 随机生成code*/
 function autoAddNileooOrder(callback) {
@@ -105,8 +107,43 @@ function autoAddNileooOrderByMemberId(memberId, callback) {
     });
 }
 
+/** 自动生成一个买家商城订单 */
+function autoAddBuyerOrder() {
+    var options = {
+        method: 'GET',
+        gzip: true,
+        url: 'http://192.168.12.40:8080/buyer/cart/add.json?buyerId=56&cookieId=jet&shopId=1&productId=19819&source=test&skuIdToBuyNumJson={7182339=5,7182344=8}'
+    }
+
+    return rp(options).then(function (body) {
+        //加入购物车
+        console.log('已加入购物车');
+        return 0;
+    }).then(function() {
+        //查询购物车
+        options.url = 'http://192.168.12.40:8080/buyer/cart/query.json?buyerId=56&cookieId=jet&currencyCode=USD';
+        options.json = true;
+        return rp(options).then(function(body) {
+            var id = body.shoppingCart.shopCarts[0].productCarts[0].carts[0].cartId;
+            return id;
+        });
+    }).then(function(cartId) {
+        options.url = 'http://192.168.12.40:8080/buyer/order/createOrder.json?cookieId=jet&buyerId=56&cartIds=' + cartId + '&currencyCode=USD&countryId=1&addressId=16&shopIdToLogisticsIdJson={1=1}'
+        return rp(options).then(function(body) {
+            var result = body.result;
+            var optStr = '';
+            for(var id in result) {
+                optStr = id + ' - ' + result[id];
+            }
+            return optStr;
+        });
+    }).catch(function(err) {
+        console.log(err.message);
+    });
+}
 
 module.exports = {
     autoAdd: autoAddNileooOrder,
-    addById: autoAddNileooOrderByMemberId
+    addById: autoAddNileooOrderByMemberId,
+    addBuyerOrder : autoAddBuyerOrder
 }
