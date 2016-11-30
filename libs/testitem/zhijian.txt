@@ -1,0 +1,1 @@
+{"result":[{"name":"B11102货位商品全部质检完毕！","id":true,"extraData":null},{"name":"1100002914010x1","id":"直发区","extraData":null}],"msg":null,"success":true}

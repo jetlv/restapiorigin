@@ -112,7 +112,7 @@ function autoAddBuyerOrder() {
     var options = {
         method: 'GET',
         gzip: true,
-        url: 'http://192.168.12.40:8080/buyer/cart/add.json?buyerId=56&cookieId=jet&shopId=1&productId=19819&source=test&skuIdToBuyNumJson={7182339=5,7182344=8}'
+        url: 'http://192.168.12.40:8080/buyer/cart/add.json?buyerId=56&cookieId=jet&shopId=1&productId=616583&source=test&skuIdToBuyNumJson={39726091=2,39726093=3}'
     }
 
     return rp(options).then(function (body) {
