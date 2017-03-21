@@ -37,6 +37,9 @@ function placeOrder(lang, usr, psw, callback) {
 
         connection.end();
         var base = 'http://test.item.www.milanoo.com/' + lang;
+        if(lang == 'jp') {
+            var base = 'http://test.item.www.milanoo.jp';
+        }
         request({ method: 'GET', url: base + '/member/login.html', gzip: true }, function (err, resp, body) {
             var cookie = getSessions(resp);
             var loginPostHeaders = {
